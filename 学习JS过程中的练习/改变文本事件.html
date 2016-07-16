@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>改变文本事件</title>
+	<script type="text/javascript">
+    	function message(){
+    		alert("您改变了文本内容！");
+    	}
+	</script>
+</head>
+<body>
+<form>
+	个人简介：<br>
+	<textarea name="summary" cols="60" rows="5" onchange=message()>请写入个人简介，不少于200字！</textarea>
+</form>	
+</body>
+</html>

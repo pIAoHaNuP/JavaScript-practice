@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>多个物体宽度变化1</title>
+	<style>
+		div {width:100px; height:50px; background:#000; margin:10px;}
+	</style>
+	<script>
+		window.onload=function ()
+		{
+			var aDiv=document.getElementsByTagName('div');      		//获取每个div对象
+			
+			for(var i=0;i<aDiv.length;i++)								//为每个对象设置鼠标移入移出事件
+			{	aDiv[i].timer=null;                                     //为每个对象设置定时器
+				aDiv[i].onmouseover=function ()
+				{
+					startMove(this, 400);								//this当前对象
+				};
+				
+				aDiv[i].onmouseout=function ()
+				{
+					startMove(this, 100);
+				};
+			}
+		};
+
+
+
+		function startMove(obj, iTarget)
+		{
+			clearInterval(obj.timer);                                       //运动之前需先关闭定时器
+			obj.timer=setInterval(function (){                         		//打开定时器每30秒执行一次函数
+				var speed=(iTarget-obj.offsetWidth)/6;						//设置变化的快慢	
+				speed=speed>0?Math.ceil(speed):Math.floor(speed);			//缓冲变化必须取整Math.ceil()向上Math.floor()向下
+				
+				if(obj.offsetWidth==iTarget)                                //判断宽度与目标值
+				{
+					clearInterval(obj.timer);
+				}
+				else
+				{
+					obj.style.width=obj.offsetWidth+speed+'px';
+				}
+			}, 30);
+		}
+	</script>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+</html>

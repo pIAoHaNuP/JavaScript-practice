@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>透明度的变化</title>
+	<style>
+		div {width:200px; height:200px; margin:20px; float:left; background:red; filter:alpha(opacity:30); opacity:0.3;}
+	</style>
+	<script>
+		window.onload=function ()
+		{
+			var aDiv=document.getElementsByTagName('div');
+			
+			for(var i=0;i<aDiv.length;i++)
+			{
+				aDiv[i].alpha=30;										//为每个物体设置透明度					
+				
+				aDiv[i].onmouseover=function ()
+				{
+					startMove(this, 100);
+				};
+				aDiv[i].onmouseout=function ()
+				{
+					startMove(this, 30);
+				};
+			}
+		};
+
+		//var alpha=30;													//属性不能共用需改为aDiv[i].alpha=30;
+
+		function startMove(obj, iTarget)
+		{
+			clearInterval(obj.timer);				           		     //关闭物体定时器
+			obj.timer=setInterval(function (){							 //开始定时器
+				var speed=(iTarget-obj.alpha)/6;
+				speed=speed>0?Math.ceil(speed):Math.floor(speed);
+				
+				if(obj.alpha==iTarget)									//判断与目标透明度的关系
+				{
+					clearInterval(obj.timer);
+				}
+				else
+				{
+					obj.alpha+=speed;
+					
+					obj.style.filter='alpha(opacity:'+obj.alpha+')';  	//IE方式的透明度
+					obj.style.opacity=obj.alpha/100; 					//谷歌FF的透明度
+				}
+			}, 30);
+		}
+	</script>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+</html>
